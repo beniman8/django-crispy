@@ -55,7 +55,7 @@ class CandidateForm(forms.ModelForm):
         min_length=50,
         max_length=1000,
         required=False,
-        widget=forms.Textarea(attrs={"placeholder": "Tell me about yourself","rows":10,}),
+        widget=forms.Textarea(attrs={"placeholder": "Tell me about yourself...","rows":10,}),
     )
 
 
@@ -64,3 +64,13 @@ class CandidateForm(forms.ModelForm):
         fields = "__all__"
         # fields = ['firstname','lastname','email','age','message']
         # exclude = ['firstname','lastname','email','age','message']
+
+
+        # Third party Widget
+        widgets = {
+            'phone':forms.TextInput(attrs={
+                'style':'font-size: 13px',
+                'placeholder':'Phone',
+                'data-mask':'(000) 000-0000'
+            })
+        }
