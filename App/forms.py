@@ -14,6 +14,7 @@ class CandidateForm(forms.ModelForm):
         validators=[
             RegexValidator(r"^[a-zA-ZÀ-ÿ\s]*$", message="Only letters is allowed !")
         ],
+        #local widget
         widget=forms.TextInput(attrs={"placeholder": "First name"}),
     )
 
