@@ -1,14 +1,29 @@
 from django.db import models
 
+STATUS = (
+    ('Pending','Pending'),
+    ('Approved','Approved'),
+    ('Disapproved','Disapproved'),
+)
+
+
 class CandidateModel(models.Model):
 
     firstname = models.CharField(max_length=50)
     lastname =  models.CharField(max_length=50)
-    age =  models.CharField(max_length=3,default=1)
-    phone = models.CharField(max_length=10,default="0000000000")
+    job =  models.CharField(max_length=5)
+    age =  models.CharField(max_length=3)
+    phone = models.CharField(max_length=25)
     email  = models.EmailField( max_length=254)
     message =  models.TextField()
     created_at = models.DateTimeField( auto_now=False, auto_now_add=True)
+    status = models.CharField(max_length=50, null=True,choices=STATUS,default='Pending')
+
+
+    #Capitalize the names 
+    def clean(self):
+        self.firstname = self.firstname.capitalize()
+        self.lastname = self.lastname.capitalize()
     
 
     def __str__(self):
