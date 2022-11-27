@@ -26,7 +26,11 @@ class CandidateForm(forms.ModelForm):
             RegexValidator(r"^[a-zA-ZÀ-ÿ\s]*$", message="Only letters is allowed !")
         ],
         # local widget
-        widget=forms.TextInput(attrs={"placeholder": "First name"}),
+        widget=forms.TextInput(attrs={
+            "placeholder": "First name",
+            'style':'font-size: 13px; text-transform: capitalize'
+            
+            }),
     )
 
     lastname = forms.CharField(
@@ -37,7 +41,10 @@ class CandidateForm(forms.ModelForm):
         validators=[
             RegexValidator(r"^[a-zA-ZÀ-ÿ\s]*$", message="Only letters is allowed !")
         ],
-        widget=forms.TextInput(attrs={"placeholder": "Last name"}),
+        widget=forms.TextInput(attrs={
+            "placeholder": "Last name",
+            'style':'font-size: 13px; text-transform: capitalize'
+            }),
     )
 
     job = UpperCase(
@@ -45,7 +52,10 @@ class CandidateForm(forms.ModelForm):
         min_length=5,
         max_length=5,
         required=True,
-        widget=forms.TextInput(attrs={"placeholder": "Example: FR-22"}),
+        widget=forms.TextInput(attrs={
+            "placeholder": "Example: FR-22",
+             'style':'font-size: 13px; text-transform: uppercase'
+            }),
     )
 
     email = LowerCase(
@@ -58,7 +68,10 @@ class CandidateForm(forms.ModelForm):
                 r"^[a-z0-9]+[\._]?[a-z0-9]+[@]\w+[.]\w{2,3}$", message="Email not valid"
             )
         ],
-        widget=forms.TextInput(attrs={"placeholder": "Email"}),
+        widget=forms.TextInput(attrs={
+            "placeholder": "Email",
+             'style':'font-size: 13px; text-transform: lowercase'
+            }),
     )
 
     age = forms.CharField(
@@ -67,7 +80,10 @@ class CandidateForm(forms.ModelForm):
         max_length=3,
         required=True,
         validators=[RegexValidator(r"^[0-9]*$", message="Only numbers please !")],
-        widget=forms.TextInput(attrs={"placeholder": "Age"}),
+        widget=forms.TextInput(attrs={
+            "placeholder": "Age",
+            'style':'font-size: 13px;'
+            }),
     )
 
     experience = forms.BooleanField(label="I have experience", required = False)
@@ -81,8 +97,17 @@ class CandidateForm(forms.ModelForm):
             attrs={
                 "placeholder": "Tell me about yourself...",
                 "rows": 4,
+                'style':'font-size: 13px;',
             }
         ),
+    )
+
+    file = forms.FileField(
+        widget=forms.ClearableFileInput(
+            attrs={
+                'style':'font-size: 13px;',
+            }
+        )
     )
 
     # Way to generatefield
@@ -96,12 +121,12 @@ class CandidateForm(forms.ModelForm):
         exclude = ["created_at", "status"]
 
         #Label Control
-        labels = {
-            'personality':'Choose a personality',
-            'salary':'Choose a salary',
-            'gender':'Your Gender',
-            'smoker':'Do you smoke',                        
-        }
+        # labels = {
+        #     'personality':'Choose a personality',
+        #     'salary':'Choose a salary',
+        #     'gender':'Your Gender',
+        #     'smoker':'Do you smoke',                        
+        # }
 
 
         SALARY = (
@@ -127,11 +152,13 @@ class CandidateForm(forms.ModelForm):
             "salary": forms.Select(
                 choices=SALARY,
                 attrs={
+                    "style": "font-size: 13px",
                     "class": "form-control",  # booostrap inside the form.py
                 },
             ),
             "gender": forms.RadioSelect(choices=GENDER, attrs={"class": "btn-check"}),
             "smoker": forms.RadioSelect(choices=SMOKER,attrs={"class": "btn-check"}),
+            "personality": forms.Select(attrs={'style':'font-size: 13px;'}),
         }
 
 

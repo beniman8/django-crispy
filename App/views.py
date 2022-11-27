@@ -4,14 +4,26 @@ from django.http import HttpResponseRedirect
 from django.contrib import messages
 
 def home(request):
-    form = CandidateForm(request.POST or None)
 
-    if form.is_valid():
-        form.save()
-        messages.success(request,"Registered Successfully !")
-        return HttpResponseRedirect('/')
+    if request.method == "POST":
+        form = CandidateForm(request.POST, request.FILES)
 
-    context = {
-        "form":form,
-    }
-    return render(request, "App/index.html",context)
+        if form.is_valid():
+            form.save()
+            messages.success(request,"Form sent successfully !")
+            return HttpResponseRedirect('/')
+
+        else:
+
+            context = {
+                "form":form,
+            }
+            return render(request, "App/index.html",context)
+
+    else:
+        form = CandidateForm()
+
+        context = {
+            "form":form,
+        }
+        return render(request, "App/index.html",context)        

@@ -8,7 +8,7 @@
         Frontend: FR-22 &nbsp;|&nbsp; Backend: BA-10 &nbsp;|&nbsp; Fullstack: FU-15
     </div>
 
-    <form action="." method="post" class="card p-3 mt-5" autocomplete="off" novalidate>
+    <form action="." enctype="multipart/form-data" method="post" class="card p-3 mt-5" autocomplete="off" novalidate>
         {% csrf_token %}
         {% comment %} {{ form|crispy }} {% endcomment %}
         <div class="row">
@@ -32,8 +32,9 @@
         {{form.experience|as_crispy_field}}
         <hr style ="border: 1px solid #007bff; margin-top: -15px;">
         {{form.message|as_crispy_field}}
+        {{form.file|as_crispy_field}}
         <hr style ="border: 1px solid #007bff;">
-        <button type="submit" class="btn btn-outline-primary" style="width:90px;">Submit</button>
+        <button type="submit" class="btn btn-outline-primary btn-sm mt-3" style="width:90px;">Submit</button>
     </form>
 
 
