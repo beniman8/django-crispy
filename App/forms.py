@@ -182,7 +182,7 @@ class CandidateForm(forms.ModelForm):
         # self.fields['email'].widget.attrs.update({'readonly':'readonly'})
 
         # ==Select option controls==
-        self.fields['personality'].choices = [('','Select a personality'),] + list(self.fields['personality'].choices)[1:]
+        # self.fields['personality'].choices = [('','Select a personality'),] + list(self.fields['personality'].choices)[1:]
 
         # ==Widget control==
 
