@@ -22,6 +22,7 @@ class CandidateForm(forms.ModelForm):
         min_length=3,
         max_length=50,
         required=True,
+        error_messages={'required':"First name cannot be empty"},
         validators=[
             RegexValidator(r"^[a-zA-ZÀ-ÿ\s]*$", message="Only letters is allowed !")
         ],
@@ -63,6 +64,7 @@ class CandidateForm(forms.ModelForm):
         min_length=6,
         max_length=50,
         required=True,
+        error_messages={'required':"Email field cannot be empty"},
         validators=[
             RegexValidator(
                 r"^[a-z0-9]+[\._]?[a-z0-9]+[@]\w+[.]\w{2,3}$", message="Email not valid"
@@ -200,7 +202,47 @@ class CandidateForm(forms.ModelForm):
         # for field in disabled:
         #     self.fields[field].widget.attrs['disabled'] = 'true'
 
-        
+        #handel error message from field one message and a for loop for many
+        # self.fields['phone'].error_messages.update({'required':"phone cannot be empty"})
+
+        # error_messages =[
+        # "firstname",
+        # "lastname",
+        # "experience",
+        # "email",
+        # "job",
+        # "age",
+        # "phone",
+        # "personality",
+        # "salary",
+        # "gender",
+        # "smoker",
+        # "message",
+        # ]
+        # for field in error_messages:
+        #     self.fields[field].error_messages.update({'required':"phone cannot be empty"})      
+
+
+        #setup font size for multiple fields
+
+        # font_size =[
+        # "firstname",
+        # "lastname",
+        # "experience",
+        # "email",
+        # "job",
+        # "age",
+        # "phone",
+        # "personality",
+        # "salary",
+        # "gender",
+        # "smoker",
+        # "message",
+        # ]
+        # for field in font_size:
+        #     self.fields[field].widget.attrs.update({'style':"font-size: 18px"})      
+
+
     #check if email already exist
     # def clean_email(self):
     #     email = self.cleaned_data.get("email")
@@ -209,9 +251,9 @@ class CandidateForm(forms.ModelForm):
     #             raise forms.ValidationError('Denied !' + email + ' is already registered.')            
     #     return email
 
-    def clean_email(self):
-        email = self.cleaned_data.get("email")
-        if CandidateModel.objects.filter(email=email).exists():
-            raise forms.ValidationError(f'Denied ! {email} is already registered.')            
-        return email
+    # def clean_email(self):
+    #     email = self.cleaned_data.get("email")
+    #     if CandidateModel.objects.filter(email=email).exists():
+    #         raise forms.ValidationError(f'Denied ! {email} is already registered.')            
+    #     return email
     

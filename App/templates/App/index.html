@@ -3,14 +3,47 @@
 
 {% block content %}
 <div class="container mt-3" style="width: 95%; font-size: 14px">
+{% comment %} 
+    <!--all fields erro message from forms.py-->
+    
+    {% for field in form %}
+        {% for error in field.errors %}
+            <div class="alert alert-danger alert-dismissible fade-show text-center" role="alert"><strong>{{error|escape}}</strong> 
+                <button  type="button" class="btn btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            
+            </div>
+
+        {% endfor %}
+    
+    
+    {% endfor %} {% endcomment %}
+
+    {% comment %} <!--individual erro message from forms.py-->
+        
+    {% if form.errors %}
+    <div class="alert alert-danger alert-dismissible fade-show text-center" role="alert"><strong>{{form.email.errors|striptags}}</strong> 
+        <button  type="button" class="btn btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+
+    </div>
+    {% endif %} {% endcomment %}
+    <!--individual erro message from forms.py using sweetalet js-->
+    {% if form.errors %}
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+    <script>
+        var m = "{{form.email.errors|striptags}}";
+        swal("Denied !",m,"error");
+    </script>
+
+    {% endif %}
+    
 
 
-    <!--Mesage from backend-->
+    <!--Mesage from backend views.py-->
     <div class="text-center">
         {% for message  in messages %}
             {% if message.tags == 'success' %}
                 <div class="alert alert-primary alert-dismissible fade show" role="alert">
-                    {{message}}
+                     <strong>{{message}}</strong>
                     <a href="{% url 'home' %}" class="btn btn-close" data-bs-dismiss="alert"></a>
                 </div>
             
