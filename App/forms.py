@@ -199,3 +199,19 @@ class CandidateForm(forms.ModelForm):
         # disabled =['gender','smoker']
         # for field in disabled:
         #     self.fields[field].widget.attrs['disabled'] = 'true'
+
+        
+    #check if email already exist
+    # def clean_email(self):
+    #     email = self.cleaned_data.get("email")
+    #     for obj in CandidateModel.objects.all():
+    #         if obj.email == email:
+    #             raise forms.ValidationError('Denied !' + email + ' is already registered.')            
+    #     return email
+
+    def clean_email(self):
+        email = self.cleaned_data.get("email")
+        if CandidateModel.objects.filter(email=email).exists():
+            raise forms.ValidationError(f'Denied ! {email} is already registered.')            
+        return email
+    

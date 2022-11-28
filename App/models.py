@@ -114,4 +114,8 @@ class CandidateModel(models.Model):
         self.lastname = self.lastname.capitalize()
 
     def __str__(self):
-        return self.firstname
+        return f"{self.firstname} {self.lastname}"
+
+    
+    def name(self):
+        return f"{self.firstname} {self.lastname}"

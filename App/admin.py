@@ -31,8 +31,9 @@ class CandidateAdmin(admin.ModelAdmin):
     exclude = ['status_color']
     list_filter = ["status"]
     list_display = (
-        "firstname",
-        "lastname",
+        # "firstname",
+        # "lastname",
+        'name',
         "email",
         "job",
         "age",
@@ -42,6 +43,17 @@ class CandidateAdmin(admin.ModelAdmin):
     )
     search_fields = ["firstname", "lastname", "email", "job", "age", "status"]
     list_per_page = 10
+
+
+    #functions to remove fields from beieng viewed on the admin panel
+    def get_fields(self, request, obj = None):
+        fields= super().get_fields(request, obj)
+
+        if obj:
+            fields.remove('firstname')
+            fields.remove('lastname')
+
+        return fields
 
     # change icons
     def _(self, obj):
