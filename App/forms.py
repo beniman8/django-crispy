@@ -55,7 +55,8 @@ class CandidateForm(forms.ModelForm):
         required=True,
         widget=forms.TextInput(attrs={
             "placeholder": "Example: FR-22",
-             'style':'font-size: 13px; text-transform: uppercase'
+            'style':'font-size: 13px; text-transform: uppercase',
+            "data-mask": "AA-00",
             }),
     )
 
@@ -72,7 +73,8 @@ class CandidateForm(forms.ModelForm):
         ],
         widget=forms.TextInput(attrs={
             "placeholder": "Email",
-             'style':'font-size: 13px; text-transform: lowercase'
+             'style':'font-size: 13px; text-transform: lowercase',
+             'autocomplete':'off'
             }),
     )
 
@@ -240,7 +242,14 @@ class CandidateForm(forms.ModelForm):
         # "message",
         # ]
         # for field in font_size:
-        #     self.fields[field].widget.attrs.update({'style':"font-size: 18px"})      
+        #     self.fields[field].widget.attrs.update({'style':"font-size: 18px"})   
+        # 
+        #  AUTP COMPlETE FOR MANY FIELD
+        # auto_complete = ['firstname','lastname']
+        # for field in auto_complete:
+        #     self.fields[field].widget.attrs.update({'autocomplete':'off'})        
+
+           
 
 
     #check if email already exist
@@ -256,4 +265,33 @@ class CandidateForm(forms.ModelForm):
     #     if CandidateModel.objects.filter(email=email).exists():
     #         raise forms.ValidationError(f'Denied ! {email} is already registered.')            
     #     return email
+
+
+    #Validate the job code 
+    def clean_job(self):
+        job=self.cleaned_data.get('job')
+        if job == "FR-22" or job == "BA-10" or job == "FU-15":
+            return job 
+        else:
+            raise forms.ValidationError(f'Denied ! The code is invalid')      
+
+    #validate age
+    def clean_age(self):
+        age= self.cleaned_data.get('age')
+        if age < '18' or age > '65':
+            raise forms.ValidationError(f'Denied ! Age must be bewtween 18 and 65')    
+        else:
+            return age 
+
+    # prevent incomplete values 
+
+    def clean_phone(self):
+        phone = self.cleaned_data.get('phone')
+        if len(phone) != 14:
+            raise forms.ValidationError(f'phone field is incomplete')    
+        else:
+            return phone             
+
+
+
     

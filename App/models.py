@@ -99,7 +99,7 @@ class CandidateModel(models.Model):
     status = models.CharField(
         max_length=50, null=True, choices=STATUS, default="Pending"
     )
-
+    company_note = models.TextField(blank=True)
     # Multiple Checkboxes
     frameworks = MultiSelectField(choices=FRAMEWORKS, default="",max_length=25)
     languages = MultiSelectField(choices=LANGUAGES, default="",max_length=25)
